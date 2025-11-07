@@ -8,12 +8,14 @@ const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
 
+//Sign-Up/Login Overlay popup
 const openModal = function (e) {
   e.preventDefault();
   modal.classList.remove('hidden');
   overlay.classList.remove('hidden');
 };
 
+//Sign-Up/Login Overlay Close popup
 const closeModal = function () {
   modal.classList.add('hidden');
   overlay.classList.add('hidden');
@@ -24,6 +26,7 @@ btnsOpenModal.forEach(btn => btn.addEventListener('click', openModal));
 btnCloseModal.addEventListener('click', closeModal);
 overlay.addEventListener('click', closeModal);
 
+//Event to close Overlay
 document.addEventListener('keydown', function (e) {
   if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
     closeModal();
@@ -39,22 +42,6 @@ btnScrollTo.addEventListener('click', function (e) {
   section1.scrollIntoView({ behavior: 'smooth' });
 });
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////
-//EVENT PROPAGATION IN PRACTICE
-/* 
-//rgba(255, 255, 255, 1)
-const randomInt = (min, max) =>
-  Math.floor(Math.random() * (max - min + 1) + min);
-const randomColor = () =>
-  `rgb(${randomInt(0, 255)},${randomInt(0, 255)},${randomInt(0, 255)})`;
-
-document
-  .querySelector('.nav__link')
-  .addEventListener('click', function (event) {
-    console.log('LINK', event.target);
-    this.style.backgroundColor = randomColor();
-  });
-
 document
   .querySelector('.nav__links')
   .addEventListener('click', function (event) {
@@ -65,22 +52,6 @@ document
 document.querySelector('.nav').addEventListener('click', function (event) {
   console.log('LINK');
 });
-*/
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////
-//Event Delegation: Implemnting Page navigation
-/* */
-
-// Page navigation
-// document.querySelectorAll('.nav__link').forEach(function (ele) {
-//   ele.addEventListener('click', function (event) {
-//     event.preventDefault();
-//     // console.log('LINK');
-//     const id = this.getAttribute('href');
-//     console.log(id);
-//     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
-//   });
-// });
 
 //EVENT DELEGATION
 // 1. Add event listener to the common parent element
@@ -96,58 +67,10 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
   }
 });
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////
-//DOM TRAVERSING
-/* 
-const h1 = document.querySelector('h1');
-
-//Going downwards: Selecting child elements
-//Doing elements with query selecter as it can get elements also
-//Selects all the elements that are children of the h1 highlight class
-console.log(h1.querySelectorAll('.highlight'));
-//Sometimes we need Direct Children, so we use ".childNodes" for that approach
-//Nodes can be text comments, elements, anything.
-console.log(h1.childNodes);
-//HTML Collection, which gets updated.
-console.log(h1.children);
-h1.firstElementChild.style.color = 'white';
-h1.lastElementChild.style.color = 'orangered';
-
-//Going upwards: Parents
-console.log(h1.parentNode);
-console.log(h1.parentElement);
-//Might need to find a parent no matter how far it is on the dom tree.
-//  so we use the closest() method, gets a query string like query selector/all
-h1.closest('.header').style.background = 'var(--gradient-secondary)';
-h1.closest('h1').style.background = 'var(--gradient-primary)';
-//QUeryselector finds children, while closest() method finds parents.
-
-//Going sideways: siblings
-console.log(h1.previousElementSibling);
-console.log(h1.nextElementSibling);
-
-console.log(h1.previousSibling);
-console.log(h1.nextSibling);
-//If we need all the children, not just next and previous, we can do a trick
-//  where we just get the parent from them to access all children
-console.log(h1.parentElement.children);
-[...h1.parentElement.children].forEach(function (element) {
-  if (element !== h1) element.style.transform = 'scale(0.5)';
-});
-*/
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////
-//Building a Tabbed Component
-/* */
-
 //Tabbed Component
 const tabs = document.querySelectorAll('.operations__tab');
 const tabsContainer = document.querySelector('.operations__tab-container');
 const tabsContent = document.querySelectorAll('.operations__content');
-
-//Ineffient
-// tabs.forEach(tab => tab.addEventListener('click', () => console.log('TAB');
-// ))
 
 //Other Example using Event Delegation
 tabsContainer.addEventListener('click', function (event) {
@@ -171,10 +94,6 @@ tabsContainer.addEventListener('click', function (event) {
     .classList.add('operations__content--active');
 });
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////
-//PASSING ARGUMENTS TO EVENT HANDLERS
-/* */
-
 //Menu fade Animation
 const nav = document.querySelector('.nav');
 const handleHover = function (opacity) {
@@ -192,55 +111,9 @@ const handleHover = function (opacity) {
   };
 };
 
-//you can log the handleHover(0.1) to see that it returns a function which
-//has access to the argument(opacity value) passed to handleHover() due to
-//closures
-
 nav.addEventListener('mouseover', handleHover(0.5));
 nav.addEventListener('mouseout', handleHover(1));
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////
-//IMPLEMENTING A STICKY NAVIGATION: THE SCROLL EVENT
-/* 
-
-//Sticky Navigation
-const initialCoords = section1.getBoundingClientRect();
-console.log(initialCoords);
-
-window.addEventListener('scroll', function(event) {
-  console.log(window.scrollY)
-
-if(window.scrollY > initialCoords.top) nav.classList.add('sticky')
-  else nav.classList.remove("sticky");
-})
-*/
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////
-//A BETTER WAY: THE INTERSECTION OBSERVER API
-/* 
-
-//What is the observer API and why is it good.
-//IT allows our code to observe changes to the way of a certain target
-//element intersect another element or intersects a viewport.
-
-//WIll be called each time that the observed element is intersecting
-//the root element at the threshold that we defined.
-const ObserverCallback = function (entries, observer) {
-  entries.forEach(entry => {
-    // console.log(entry);
-  });
-};
-
-const observerOptions = {
-  root: null,
-  threshold: [0, 0.2],
-};
-
-//So the viewport, because that's the root, and 10% because that's the threshold
-//Whenever that happens, this function will get called.
-const observer = new IntersectionObserver(ObserverCallback, observerOptions);
-observer.observe(section1);
-*/
 //WHen do we want our sticky, basically when the header is no longer in view.
 const header = document.querySelector('.header');
 const navHeight = nav.getBoundingClientRect().height;
@@ -258,10 +131,6 @@ const headerObserver = new IntersectionObserver(stickyNav, {
 });
 
 headerObserver.observe(header);
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////
-//REVEALING ELEMENTS ON SCROLL.
-/* */
 
 //REVEAL SECTIONS]
 const allSections = document.querySelectorAll('.section');
@@ -286,18 +155,6 @@ allSections.forEach(function (section) {
   // section.classList.add('section--hidden');
 });
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////
-//Loading Lazy images.
-/* */
-
-//When building any website, performance is most important. Yet,
-//  images have the biggest impant on page loading. So optmizing images
-//  on any page is crucial. We use a strategy called Lazy Loading Images.
-
-//We first set to the images as low res, then make it normal res as you scroll.
-//We use "data-src" (special data attribute) and "lazy-img" in src attribute.
-// lazy-img is simply a blur filter.
-
 //Lazy loading images
 //when targeting, we use brackets to narrow down our search
 const imgTargets = document.querySelectorAll('img[data-src]');
@@ -308,7 +165,7 @@ const loadImg = function (entries, observer) {
   if (!entry.isIntersecting) return;
 
   // Replace src with data-src
-  entry.target.src = entry.target.dataset.src;
+  // entry.target.src = entry.target.dataset.src;
 
   // When image is loaded, remove blur or add loaded class
   entry.target.addEventListener('load', function () {
@@ -326,10 +183,6 @@ const imgObserver = new IntersectionObserver(loadImg, {
 });
 
 imgTargets.forEach(img => imgObserver.observe(img));
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////
-//Building A Slider Component Part 1 AND 2
-/* */
 
 //PART 1 and 2 Are together in one section, if not, you will get errors in code.
 //Try to implement slider function AND dot slider function as the same time.
@@ -407,35 +260,11 @@ const slider = function () {
 };
 slider();
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////
-//LifeCycle DOM EVENTS
-/* */
-
-//Taking a look at different events that occur in the DOM
-//  during a webpage's life cycle.
-
 //This event doesn't wait for images and other external resources to load.
 document.addEventListener('DOMContentLoaded', function (event) {
   console.log(event, 'HTML parsed and DOM tree built!');
 });
 
-window.addEvenetListener('load', function (event) {
+window.addEventListener('load', function (event) {
   console.log('Page fully loaded', event);
 });
-
-//Used when you are about to exit the page, something happens.
-// Key example is when you try to exit page, and a prompt comes up
-// saying if you are sure that you want to exit.
-
-// window.addEventListener('beforeunload', function (event) {
-//   event.preventDefault();
-//   console.log(event);
-//   event.returnValue = '';
-// });
-
-//You were once able to costumized this, but devs/people took advantage of it.
-// Try not to abuse it if you use it.
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////
-//Efficient Script Loading: defer and async
-/* */
