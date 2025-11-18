@@ -7,6 +7,8 @@ const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
+const successBanner = document.querySelector('.success_banner');
+const loginFailure = document.querySelector('.login_failure');
 
 //Sign-Up/Login Overlay popup
 const openModal = function (e) {
@@ -42,29 +44,70 @@ btnScrollTo.addEventListener('click', function (e) {
   section1.scrollIntoView({ behavior: 'smooth' });
 });
 
+//(On Hold)
 document
   .querySelector('.nav__links')
   .addEventListener('click', function (event) {
-    console.log('LINK');
-    this.style.backgroundColor = randomColor();
+    // console.log('LINK');
+    // this.style.backgroundColor = randomColor();
   });
 
 document.querySelector('.nav').addEventListener('click', function (event) {
-  console.log('LINK');
+  // console.log('LINK');
 });
 
 //EVENT DELEGATION
 // 1. Add event listener to the common parent element
 // 2. determine what element originated the event.
 document.querySelector('.nav__links').addEventListener('click', function (e) {
+  if (e.target.classList.contains('sign-up-btn')) {
+    return;
+  }
   e.preventDefault();
 
   // Matching strategy
-  if (e.target.classList.contains('nav__link')) {
+  if (
+    e.target.classList.contains('nav__link') &&
+    !e.target.classList.contains('nav__link--btn')
+  ) {
     const id = e.target.getAttribute('href');
-    console.log(id);
+    // console.log(id);
     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
   }
+});
+
+//Login Verification button.
+//I need to get FullName Value and Password Value once Button is clicked.
+document.querySelector('.modal__form').addEventListener('submit', function (e) {
+  e.preventDefault();
+  const modalUsername = document.querySelector('#modal__username');
+  const modalPassword = document.querySelector('#modal__password');
+  const regexUserTest = /\d/; //regex for digits
+  const regexPasswordTest = /[a-zA-Z]/; // regex for letters
+
+  //if condition for success/fail login
+  if (
+    !regexUserTest.test(modalUsername.value) &&
+    !regexPasswordTest.test(modalPassword.value)
+  ) {
+    console.log('Login Successful');
+    closeModal();
+    successBanner.style.transform = 'translateY(0)';
+    setTimeout(() => {
+      successBanner.style.transform = 'translateY(-100%)';
+    }, 2000);
+    setTimeout(() => {
+      window.location.href = 'home.html';
+    }, 3000);
+    loginFailure.style.display = 'none';
+  } else {
+    console.log('Login failed! Wrong Username/Password!');
+    loginFailure.style.display = 'block';
+  }
+
+  //reset values after submit
+  modalUsername.value = '';
+  modalPassword.value = '';
 });
 
 //Tabbed Component
@@ -75,7 +118,7 @@ const tabsContent = document.querySelectorAll('.operations__content');
 //Other Example using Event Delegation
 tabsContainer.addEventListener('click', function (event) {
   const clicked = event.target.closest('.operations__tab');
-  console.log(clicked);
+  // console.log(clicked);
   // Guard clause: Some condition that will return early if some condition is matched.
   if (!clicked) return;
 
@@ -119,7 +162,7 @@ const header = document.querySelector('.header');
 const navHeight = nav.getBoundingClientRect().height;
 const stickyNav = function (entries) {
   const [entry] = entries;
-  console.log(entry);
+  // console.log(entry);
   if (!entry.isIntersecting) nav.classList.add('sticky');
   else nav.classList.remove('sticky');
 };
@@ -261,10 +304,10 @@ const slider = function () {
 slider();
 
 //This event doesn't wait for images and other external resources to load.
-document.addEventListener('DOMContentLoaded', function (event) {
-  console.log(event, 'HTML parsed and DOM tree built!');
-});
+// document.addEventListener('DOMContentLoaded', function (event) {
+//   // console.log(event, 'HTML parsed and DOM tree built!');
+// });
 
-window.addEventListener('load', function (event) {
-  console.log('Page fully loaded', event);
-});
+// window.addEventListener('load', function (event) {
+//   // console.log('Page fully loaded', event);
+// });

@@ -15,6 +15,7 @@
   </head>
   <body>
     <header class="header">
+      <div class="success_banner"><p>Success!</p></div>
       <nav class="nav">
         <img
           src="../assets/img/logo.png"
@@ -35,7 +36,7 @@
             <a class="nav__link" href="#section--3">Testimonials</a>
           </li>
           <li class="nav__item">
-            <a class="nav__link nav__link--btn btn--show-modal" href="#"
+            <a class="nav__link nav__link--btn sign-up-btn" href="signup.html"
               >Sign Up</a
             >
           </li>
@@ -359,7 +360,7 @@
         </li>
       </ul>
       <img src="../assets/img/icon.png" alt="Logo" class="footer__logo" />
-      <p class="footer__copyright">
+      <!-- <p class="footer__copyright">
         &copy; Copyright by
         <a
           class="footer__link twitter-link"
@@ -368,23 +369,23 @@
           >Jonas Schmedtmann</a
         >. Use for learning or your portfolio. Don't use to teach. Don't claim
         as your own product.
-      </p>
+      </p> -->
     </footer>
 
     <div class="modal hidden">
       <button class="btn--close-modal">&times;</button>
       <h2 class="modal__header">
-        Open your bank account <br />
-        in just <span class="highlight">5 minutes</span>
+        Login to your bank <span class="highlight">account</span>
       </h2>
       <form class="modal__form">
-        <label>First Name</label>
-        <input type="text" />
-        <label>Last Name</label>
-        <input type="text" />
-        <label>Email Address</label>
-        <input type="email" />
-        <button class="btn">Complete Sign Up &rarr;</button>
+        <label>Full Name</label>
+        <input type="text" id="modal__username" />
+        <label>Password</label>
+        <input type="text" id="modal__password" />
+        <p class="login_failure" style="display: none">
+          Login failed! Wrong Username or Password!
+        </p>
+        <button class="btn">Complete Login &rarr;</button>
       </form>
     </div>
     <div class="overlay hidden"></div>

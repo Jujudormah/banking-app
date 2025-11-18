@@ -113,6 +113,31 @@ img {
   filter: blur(20px);
 } */
 
+.success_banner {
+  background-color: #4caf50;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  position: fixed; /* Stays at the top even on scroll */
+  transform: translateY(-100%);
+  transition: transform 1s ease;
+  left: 0;
+  width: 100%;
+  z-index: 1000; /* Ensures it's above other elements */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  font-family: 'Poppins', sans-serif;
+  font-size: 18px;
+}
+
+.success_banner p {
+  color: white;
+}
+
+.modal__form p {
+  color: red;
+  font-family: 'Poppins', sans-serif;
+}
+
 /* NAVIGATION */
 .nav {
   display: flex;
