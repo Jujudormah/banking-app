@@ -77,31 +77,41 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
 });
 
 //Login Verification button.
-//I need to get FullName Value and Password Value once Button is clicked.
 document.querySelector('.modal__form').addEventListener('submit', function (e) {
   e.preventDefault();
+  //Variables for values and userData.js comparison.
   const modalUsername = document.querySelector('#modal__username');
   const modalPassword = document.querySelector('#modal__password');
   const regexUserTest = /\d/; //regex for digits
   const regexPasswordTest = /[a-zA-Z]/; // regex for letters
+  const findAccount = accounts.find(
+    account => account.owner === modalUsername.value
+  );
 
   //if condition for success/fail login
   if (
     !regexUserTest.test(modalUsername.value) &&
     !regexPasswordTest.test(modalPassword.value)
   ) {
-    console.log('Login Successful');
-    closeModal();
-    successBanner.style.transform = 'translateY(0)';
-    setTimeout(() => {
-      successBanner.style.transform = 'translateY(-100%)';
-    }, 2000);
-    setTimeout(() => {
-      window.location.href = 'home.html';
-    }, 3000);
-    loginFailure.style.display = 'none';
+    if (findAccount && findAccount.pin === Number(modalPassword.value)) {
+      console.log('Login Successful');
+      closeModal();
+      successBanner.style.transform = 'translateY(0)';
+      setTimeout(() => {
+        successBanner.style.transform = 'translateY(-100%)';
+      }, 2000);
+      setTimeout(() => {
+        window.location.href = 'home.html';
+      }, 3000);
+      loginFailure.style.display = 'none';
+    } else {
+      console.log('Login failed! Wrong Username/Password!');
+      loginFailure.textContent = 'Login failed! Wrong Username/Password!';
+      loginFailure.style.display = 'block';
+    }
   } else {
-    console.log('Login failed! Wrong Username/Password!');
+    console.log('Invalid format in Username/Password!');
+    loginFailure.textContent = 'Invalid format in Username/Password!';
     loginFailure.style.display = 'block';
   }
 
