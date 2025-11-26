@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/signup.css" />
+  </head>
+  <body>
+    <!-- <div class="success-banner"><p>Success!</p></div> -->
+    <div class="form-container">
+      <h2>Create your <span class="highlight">account</span></h2>
+      <form class="signup-form">
+        <div class="fullname-container">
+          <label>Full Name:</label>
+          <input type="text" id="form-fullname" />
+        </div>
+        <div class="password-container">
+          <label>Password:</label>
+          <input type="text" id="form-password" />
+        </div>
+        <p class="form-failure" style="display: none">
+          Attempt failed! Invalid input!
+        </p>
+        <button class="form-btn" type="submit">Create Account &rarr;</button>
+      </form>
+    </div>
+    <script src="../javascript/userData.js"></script>
+    <script src="../javascript/signup.js"></script>
+  </body>
+</html>

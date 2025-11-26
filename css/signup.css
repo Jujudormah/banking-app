@@ -1,0 +1,25 @@
+.success-banner {
+  background-color: #4caf50;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  position: fixed; /* Stays at the top even on scroll */
+  transform: translateY(-100%);
+  transition: transform 1s ease;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000; /* Ensures it's above other elements */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.3rem;
+}
+
+.form-container {
+  text-align: center;
+  margin: 0 3rem;
+  width: 50%;
+  display: grid;
+  gap: 2.5rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
