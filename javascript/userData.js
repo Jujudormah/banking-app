@@ -1,4 +1,5 @@
 //Account Creation and User Data
+'use strict';
 
 class CreateAccount {
   constructor(owner, pin) {
