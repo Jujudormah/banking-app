@@ -1,6 +1,11 @@
 'use strict';
 
-///////////////////////////////////////
+//When page loads
+window.addEventListener('load', function () {
+  history.scrollRestoration = 'manual';
+  this.window.scrollTo(0, 0);
+});
+
 // Modal window
 
 const modal = document.querySelector('.modal');
