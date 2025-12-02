@@ -27,6 +27,8 @@ signUpForm.addEventListener('submit', function (event) {
     console.log('success');
     let user = new CreateAccount(owner, Number(pin));
     accounts.push(user);
+    console.log(user);
+
     successBanner.style.transform = 'translateY(0)';
     setTimeout(() => {
       successBanner.style.transform = 'translateY(-100%)';
