@@ -186,6 +186,7 @@ img {
   border-radius: 3rem;
   background-color: var(--color-primary);
   color: #222;
+  white-space: nowrap;
 }
 
 .nav__link--btn:hover,
