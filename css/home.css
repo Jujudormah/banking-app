@@ -20,46 +20,115 @@ body {
   color: #444;
   background-color: #f3f3f3;
   height: 100vh;
-  padding: 2rem;
+}
+
+.header {
+  width: 100%;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 2rem;
+  padding: 0 3rem;
+  height: 8rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.nav__right {
+  display: flex;
+  align-items: center;
+  gap: 25rem;
+}
+
+.nav__links {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  gap: 3rem;
+}
+
+.nav__item {
+  position: relative;
+}
+
+.nav__link:link,
+.nav__link:visited {
+  font-size: 2.3rem;
+  font-weight: 400;
+  color: #444;
+  text-decoration: none;
+  display: block;
+  transition: all 0.3s;
+  padding: 0.5rem 0;
+}
+
+.nav__link:hover {
+  color: #5ec576;
+}
+
+.nav__link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #5ec576;
+  transition: width 0.3s ease;
+}
+
+.nav__link:hover::after {
+  width: 100%;
 }
 
 .welcome {
   font-size: 1.9rem;
   font-weight: 500;
+  margin: 2rem auto 1rem auto;
+  padding: 0 3rem;
+  max-width: 1200px;
 }
 
 .logo {
-  height: 5.25rem;
+  height: 5.6rem;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.logo:hover {
+  transform: scale(1.05);
 }
 
 .login {
   display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 .login__input {
   border: none;
-  padding: 0.5rem 2rem;
+  padding: 0.8rem 1.5rem;
   font-size: 1.6rem;
   font-family: inherit;
   text-align: center;
   width: 12rem;
   border-radius: 10rem;
-  margin-right: 1rem;
   color: inherit;
-  border: 1px solid #fff;
+  border: 2px solid #d2d2d2;
   transition: all 0.3s;
 }
 
 .login__input:focus {
   outline: none;
-  border: 1px solid #ccc;
+  border: 1px solid #5ec576;
+  box-shadow: 0 0 0 3px rgba(94, 197, 118, 0.2);
 }
 
 .login__input::placeholder {
@@ -80,20 +149,19 @@ nav {
 .btn--sort:hover,
 .btn--sort:focus {
   outline: none;
-  color: #777;
+  color: #5ec576;
 }
 
 /* MAIN */
 .app {
   position: relative;
   max-width: 100rem;
-  margin: 4rem auto;
+  margin: 2rem auto;
+  padding: 0 2rem;
   display: grid;
   grid-template-columns: 4fr 3fr;
   grid-template-rows: auto repeat(3, 15rem) auto;
   gap: 2rem;
-
-  /* NOTE This creates the fade in/out anumation */
   opacity: 0;
   transition: all 1s;
 }
@@ -294,4 +362,35 @@ h2 {
 
 .timer {
   font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+    height: auto;
+    padding: 2rem;
+    gap: 2rem;
+  }
+
+  .nav__left {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .nav__links {
+    gap: 2rem;
+  }
+
+  .app {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+
+  .balance {
+    grid-column: 1;
+  }
+
+  .movements {
+    grid-row: auto;
+  }
 }
