@@ -1,13 +1,6 @@
 'use strict';
 
-//When page loads
-window.addEventListener('load', function () {
-  history.scrollRestoration = 'manual';
-  this.window.scrollTo(0, 0);
-});
-
-// Modal window
-
+//Declarations
 const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
@@ -15,32 +8,32 @@ const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
 const successBanner = document.querySelector('.success_banner');
 const loginFailure = document.querySelector('.login_failure');
 
-//Sign-Up/Login Overlay popup
+window.addEventListener('load', function () {
+  history.scrollRestoration = 'manual';
+  this.window.scrollTo(0, 0);
+});
+
 const openModal = function (e) {
   e.preventDefault();
   modal.classList.remove('hidden');
   overlay.classList.remove('hidden');
 };
 
-//Sign-Up/Login Overlay Close popup
 const closeModal = function () {
   modal.classList.add('hidden');
   overlay.classList.add('hidden');
 };
 
-//ForEach Loop
 btnsOpenModal.forEach(btn => btn.addEventListener('click', openModal));
 btnCloseModal.addEventListener('click', closeModal);
 overlay.addEventListener('click', closeModal);
 
-//Event to close Overlay
 document.addEventListener('keydown', function (e) {
   if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
     closeModal();
   }
 });
 
-//Old fashion way
 const btnScrollTo = document.querySelector('.btn--scroll-to');
 const section1 = document.querySelector('#section--1');
 
@@ -49,34 +42,18 @@ btnScrollTo.addEventListener('click', function (e) {
   section1.scrollIntoView({ behavior: 'smooth' });
 });
 
-//(On Hold)
-document
-  .querySelector('.nav__links')
-  .addEventListener('click', function (event) {
-    // console.log('LINK');
-    // this.style.backgroundColor = randomColor();
-  });
-
-document.querySelector('.nav').addEventListener('click', function (event) {
-  // console.log('LINK');
-});
-
 //EVENT DELEGATION
-// 1. Add event listener to the common parent element
-// 2. determine what element originated the event.
 document.querySelector('.nav__links').addEventListener('click', function (e) {
   if (e.target.classList.contains('sign-up-btn')) {
     return;
   }
   e.preventDefault();
 
-  // Matching strategy
   if (
     e.target.classList.contains('nav__link') &&
     !e.target.classList.contains('nav__link--btn')
   ) {
     const id = e.target.getAttribute('href');
-    // console.log(id);
     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
   }
 });
@@ -84,7 +61,7 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
 //Login Verification button.
 document.querySelector('.modal__form').addEventListener('submit', function (e) {
   e.preventDefault();
-  //Variables for values and userData.js comparison.
+
   const modalUsername = document.querySelector('#modal__username');
   const modalPassword = document.querySelector('#modal__password');
   const regexUserTest = /\d/; //regex for digits
@@ -93,7 +70,6 @@ document.querySelector('.modal__form').addEventListener('submit', function (e) {
     account => account.owner === modalUsername.value
   );
 
-  //if condition for success/fail login
   if (
     !regexUserTest.test(modalUsername.value) &&
     !regexPasswordTest.test(modalPassword.value)
@@ -120,12 +96,10 @@ document.querySelector('.modal__form').addEventListener('submit', function (e) {
     loginFailure.style.display = 'block';
   }
 
-  //reset values after submit
   modalUsername.value = '';
   modalPassword.value = '';
 });
 
-//Tabbed Component
 const tabs = document.querySelectorAll('.operations__tab');
 const tabsContainer = document.querySelector('.operations__tab-container');
 const tabsContent = document.querySelectorAll('.operations__content');
@@ -133,20 +107,15 @@ const tabsContent = document.querySelectorAll('.operations__content');
 //Other Example using Event Delegation
 tabsContainer.addEventListener('click', function (event) {
   const clicked = event.target.closest('.operations__tab');
-  // console.log(clicked);
-  // Guard clause: Some condition that will return early if some condition is matched.
   if (!clicked) return;
 
-  //Remove Active Classes
   tabs.forEach(tabs => tabs.classList.remove('operations__tab--active'));
   tabsContent.forEach(content =>
     content.classList.remove('operations__content--active')
   );
 
-  //Activate Tab
   clicked.classList.add('operations__tab--active');
 
-  // Activate content Area
   document
     .querySelector(`.operations__content--${clicked.dataset.tab}`)
     .classList.add('operations__content--active');
@@ -172,12 +141,10 @@ const handleHover = function (opacity) {
 nav.addEventListener('mouseover', handleHover(0.5));
 nav.addEventListener('mouseout', handleHover(1));
 
-//WHen do we want our sticky, basically when the header is no longer in view.
 const header = document.querySelector('.header');
 const navHeight = nav.getBoundingClientRect().height;
 const stickyNav = function (entries) {
   const [entry] = entries;
-  // console.log(entry);
   if (!entry.isIntersecting) nav.classList.add('sticky');
   else nav.classList.remove('sticky');
 };
@@ -190,13 +157,12 @@ const headerObserver = new IntersectionObserver(stickyNav, {
 
 headerObserver.observe(header);
 
-//REVEAL SECTIONS]
+//Reveal Sections
 const allSections = document.querySelectorAll('.section');
 
 const revealSection = function (entries, observer) {
   const [entry] = entries;
-  // entries.forEach(entry => {
-  // });
+
   if (!entry.isIntersecting) return;
 
   entry.target.classList.remove('section--hidden');
@@ -210,40 +176,9 @@ const sectionObserver = new IntersectionObserver(revealSection, {
 
 allSections.forEach(function (section) {
   sectionObserver.observe(section);
-  // section.classList.add('section--hidden');
 });
 
-//Lazy loading images
-//when targeting, we use brackets to narrow down our search
-const imgTargets = document.querySelectorAll('img[data-src]');
-
-const loadImg = function (entries, observer) {
-  const [entry] = entries;
-
-  if (!entry.isIntersecting) return;
-
-  // Replace src with data-src
-  // entry.target.src = entry.target.dataset.src;
-
-  // When image is loaded, remove blur or add loaded class
-  entry.target.addEventListener('load', function () {
-    entry.target.classList.remove('lazy-img'); // or whatever class you're using
-  });
-
-  // Stop observing the image, we do this for optimizing performance.
-  observer.unobserve(entry.target);
-};
-
-const imgObserver = new IntersectionObserver(loadImg, {
-  root: null,
-  threshold: 0,
-  rootMargin: '200px',
-});
-
-imgTargets.forEach(img => imgObserver.observe(img));
-
-//PART 1 and 2 Are together in one section, if not, you will get errors in code.
-//Try to implement slider function AND dot slider function as the same time.
+//Slider Component
 const slider = function () {
   const slides = document.querySelectorAll('.slide');
   const btnLeft = document.querySelector('.slider__btn--left');
@@ -268,7 +203,7 @@ const slider = function () {
     const activeDot = document.querySelector(
       `.dots__dot[data-slide="${slide}"]`
     );
-    if (activeDot) activeDot.classList.add('dots__dot--active'); // optional safety check
+    if (activeDot) activeDot.classList.add('dots__dot--active');
   };
 
   const nextSlide = function () {
@@ -317,12 +252,3 @@ const slider = function () {
   });
 };
 slider();
-
-//This event doesn't wait for images and other external resources to load.
-// document.addEventListener('DOMContentLoaded', function (event) {
-//   // console.log(event, 'HTML parsed and DOM tree built!');
-// });
-
-// window.addEventListener('load', function (event) {
-//   // console.log('Page fully loaded', event);
-// });

@@ -14,8 +14,8 @@ signUpForm.addEventListener('submit', function (event) {
   event.preventDefault();
   const owner = formName.value;
   const pin = formPassword.value;
-  const regexUserTest = /\d/; //regex for digits
-  const regexPasswordTest = /[a-zA-Z]/; // regex for letters
+  const regexUserTest = /\d/;
+  const regexPasswordTest = /[a-zA-Z]/;
 
   if (owner == '' || pin == '') {
     console.log('input is empty, attempt failed');
