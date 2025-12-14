@@ -219,6 +219,7 @@ input[type='password']:focus {
   box-shadow: 0 5px 10px rgba(94, 197, 118, 0.3);
 }
 
+/* Responsive media */
 @media (max-width: 768px) {
   .nav {
     padding: 0 2rem;
