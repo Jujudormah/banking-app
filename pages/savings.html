@@ -8,27 +8,148 @@
   </head>
   <body>
     <header class="header">
-      <div>
-        <!-- <div class="success_banner"><p>Success!</p></div> -->
-        <nav class="nav">
-          <img
-            src="../assets/img/logo.png"
-            alt="Bankist logo"
-            class="nav__logo"
-            id="logo"
-            designer="gustavo"
-            data-version-number="3.0"
-          />
-          <ul class="nav__links">
-            <li class="nav__item">
-              <a class="nav__link" href="landing.html">Landing</a>
-            </li>
-            <li class="nav__item">
-              <a class="nav__link" href="home.html">Home</a>
-            </li>
-          </ul>
-        </nav>
-      </div>
+      <nav class="nav">
+        <img
+          src="../assets/img/logo.png"
+          alt="Bankist logo"
+          class="nav__logo"
+          id="logo"
+        />
+        <ul class="nav__links">
+          <li class="nav__item">
+            <a class="nav__link" href="landing.html">Landing</a>
+          </li>
+          <li class="nav__item">
+            <a class="nav__link" href="home.html">Home</a>
+          </li>
+          <li class="nav__item">
+            <a class="nav__link" href="signup.html">Sign-Up</a>
+          </li>
+        </ul>
+      </nav>
     </header>
+
+    <div class="container">
+      <h1 class="page-title">Savings Calculator</h1>
+      <p class="page-subtitle">
+        Plan your financial future with compound interest
+      </p>
+
+      <div class="calculator-container">
+        <!-- Calculator Form -->
+        <div class="calculator-form">
+          <form id="savingsForm">
+            <div class="form-group">
+              <label for="initial">Initial Deposit</label>
+              <input
+                type="number"
+                id="initial"
+                placeholder="1000"
+                min="0"
+                step="0.01"
+                required
+              />
+              <p class="input-hint">Starting amount in your savings account</p>
+            </div>
+
+            <div class="form-group">
+              <label for="monthly">Monthly Contribution</label>
+              <input
+                type="number"
+                id="monthly"
+                placeholder="100"
+                min="0"
+                step="0.01"
+                required
+              />
+              <p class="input-hint">Amount you'll save each month</p>
+            </div>
+
+            <div class="form-group">
+              <label for="interest">Annual Interest Rate (%)</label>
+              <input
+                type="number"
+                id="interest"
+                placeholder="5"
+                min="0"
+                max="100"
+                step="0.01"
+                required
+              />
+              <p class="input-hint">Expected yearly interest rate</p>
+            </div>
+
+            <div class="form-group">
+              <label for="years">Time Period (Years)</label>
+              <input
+                type="number"
+                id="years"
+                placeholder="10"
+                min="1"
+                max="50"
+                required
+              />
+              <p class="input-hint">How long you plan to save</p>
+            </div>
+
+            <button type="submit" class="calculate-btn">
+              Calculate Savings
+            </button>
+          </form>
+        </div>
+
+        <!-- Results Container -->
+        <div class="results-container">
+          <h2 class="results-title">Your Savings Projection</h2>
+
+          <div id="resultsContent" class="hidden">
+            <div class="result-summary">
+              <div class="result-card primary">
+                <p class="result-label">Final Balance</p>
+                <p class="result-value" id="finalAmount">$0</p>
+              </div>
+
+              <div class="result-card secondary">
+                <p class="result-label">Total Contributions</p>
+                <p class="result-value" id="totalContributions">$0</p>
+              </div>
+
+              <div class="result-card secondary">
+                <p class="result-label">Interest Earned</p>
+                <p class="result-value" id="interestEarned">$0</p>
+              </div>
+            </div>
+
+            <!-- Breakdown Table -->
+            <div class="breakdown-section">
+              <h3 class="breakdown-title">Year-by-Year Breakdown</h3>
+              <table class="breakdown-table">
+                <thead>
+                  <tr>
+                    <th>Year</th>
+                    <th>Balance</th>
+                    <th>Interest</th>
+                  </tr>
+                </thead>
+                <tbody id="breakdownTable">
+                  <!-- Populated by JavaScript -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div
+            id="placeholder"
+            style="text-align: center; padding: 4rem 0; color: #999"
+          >
+            <p style="font-size: 1.6rem">
+              Enter your details and click calculate to see results
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="../javascript/userData.js"></script>
+    <script src="../javascript/savings.js"></script>
   </body>
 </html>
